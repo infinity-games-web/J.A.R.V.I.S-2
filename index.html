@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Jarvis 2.0</title>
+<style>
+body{
+background:black;
+color:#00ffe1;
+font-family:Arial;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<h1>JARVIS 2.0</h1>
+
+<input id="user" placeholder="Seu nome">
+<br><br>
+
+<input id="msg" placeholder="Digite algo">
+<button onclick="send()">Enviar</button>
+
+<p id="resposta"></p>
+
+<script>
+async function send(){
+
+const msg = document.getElementById("msg").value;
+const user = document.getElementById("user").value;
+
+const res = await fetch("/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({user, message:msg})
+});
+
+const data = await res.json();
+document.getElementById("resposta").innerText=data.reply;
+}
+</script>
+
+</body>
+</html>
